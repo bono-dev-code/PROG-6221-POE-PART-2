@@ -2,43 +2,56 @@ using System.Collections.Generic;
 
 namespace CybersecurityChatbot.Models
 {
-    /// <summary>
-    /// Represents a chatbot response with keywords and multiple response options.
-    /// </summary>
+    // This class represents a single chatbot response.
+    // It stores keywords, possible replies, and a category for organization.
     public class Response
     {
+        // Keywords that the chatbot will look for in user input
         public string[] Keywords { get; set; }
+
+        // List of possible responses the chatbot can choose from
         public List<string> ResponseOptions { get; set; }
+
+        // Category to group similar responses (e.g., Greeting, Help, Security)
         public string Category { get; set; }
 
+        // Constructor used to create a new Response object
         public Response(string[] keywords, List<string> responseOptions, string category = "General")
         {
+            // Assign the keywords to the property
             Keywords = keywords;
+
+            // Assign the response options to the property
             ResponseOptions = responseOptions;
+
+            // Assign the category (default is "General" if not provided)
             Category = category;
         }
     }
 
-    /// <summary>
-    /// Static response bank for the chatbot.
-    /// </summary>
+    // This static class stores all predefined chatbot responses.
+    // It acts like a "database" of responses for the chatbot.
     public static class ResponseBank
     {
+        // This method returns a list of all chatbot responses
         public static List<Response> GetResponses()
         {
+            // Create and return a list of Response objects
             return new List<Response>
             {
+                // Greeting responses
                 new Response(
-                    new[] { "hello", "hi", "hey", "greetings" },
-                    new List<string>
+                    new[] { "hello", "hi", "hey", "greetings" }, // Keywords
+                    new List<string> // Possible replies
                     {
                         "Hello! Welcome to the Cybersecurity Awareness Bot. I am ready to help you stay safe online today.",
                         "Hi there! I am your Cybersecurity Awareness Assistant. Ask me anything about online safety.",
                         "Hey! I am here to guide you through important cybersecurity tips and safe online habits."
                     },
-                    "Greeting"
+                    "Greeting" // Category
                 ),
 
+                // Asking how the bot is doing
                 new Response(
                     new[] { "how are you", "how do you do" },
                     new List<string>
@@ -49,6 +62,7 @@ namespace CybersecurityChatbot.Models
                     "Greeting"
                 ),
 
+                // Bot purpose
                 new Response(
                     new[] { "purpose", "what can you do", "what do you do", "your purpose", "what is your purpose" },
                     new List<string>
@@ -59,6 +73,7 @@ namespace CybersecurityChatbot.Models
                     "Purpose"
                 ),
 
+                // Help topics
                 new Response(
                     new[] { "what can i ask you about", "topics", "help", "help me", "more topics", "what else" },
                     new List<string>
@@ -79,6 +94,7 @@ namespace CybersecurityChatbot.Models
                     "Help"
                 ),
 
+                // Password safety
                 new Response(
                     new[] { "password", "passwords", "strong password", "secure password", "password safety" },
                     new List<string>
@@ -95,6 +111,7 @@ namespace CybersecurityChatbot.Models
                     "Password Safety"
                 ),
 
+                // Password manager explanation
                 new Response(
                     new[] { "password manager", "password vault" },
                     new List<string>
@@ -105,140 +122,120 @@ namespace CybersecurityChatbot.Models
                     "Password Safety"
                 ),
 
+                // Two-factor authentication
                 new Response(
                     new[]
                     {
-                        "2fa",
-                        "two factor authentication",
-                        "two-factor authentication",
-                        "multi factor authentication",
-                        "multi-factor authentication",
-                        "mfa",
-                        "authentication",
-                        "otp",
-                        "one time pin",
-                        "verification code"
+                        "2fa", "two factor authentication", "two-factor authentication",
+                        "multi factor authentication", "multi-factor authentication",
+                        "mfa", "authentication", "otp", "one time pin", "verification code"
                     },
                     new List<string>
                     {
                         "TWO-FACTOR AUTHENTICATION:\n" +
                         "Two-factor authentication adds an extra layer of security to your accounts.\n\n" +
-                        "Even if someone steals your password, they still need a second verification step, such as a code sent to your phone, to log in.\n\n" +
-                        "You should enable 2FA on:\n" +
-                        "• Email accounts\n" +
-                        "• Banking apps\n" +
-                        "• Social media\n" +
-                        "• Shopping accounts",
+                        "Even if someone steals your password, they still need a second verification step.",
 
-                        "Using two-factor authentication, also called 2FA, is one of the best ways to protect your accounts. Even if your password is compromised, attackers cannot easily log in without the second verification step."
+                        "Using two-factor authentication is one of the best ways to protect your accounts."
                     },
                     "Authentication"
                 ),
 
+                // Phishing awareness
                 new Response(
                     new[] { "phishing", "phishing scams", "phish", "scam", "scams", "scam email", "fake email" },
                     new List<string>
                     {
-                        "PHISHING AWARENESS:\n" +
-                        "Phishing is when criminals pretend to be trusted people or companies to trick you into giving away passwords, banking details, or other personal information.\n\n" +
-                        "Warning signs include:\n" +
-                        "• Urgent or threatening language\n" +
-                        "• Strange sender addresses\n" +
-                        "• Suspicious links\n" +
-                        "• Requests for personal information\n" +
-                        "• Poor spelling and grammar",
-
-                        "If a message pressures you to click quickly, confirm account details, or send personal information, it may be phishing. Stop, verify the sender, and never rush."
+                        "Phishing is when criminals pretend to be trusted sources to steal your information.",
+                        "If a message pressures you to act quickly, it may be a phishing attempt."
                     },
                     "Phishing"
                 ),
 
+                // Safe browsing
                 new Response(
                     new[] { "safe browsing", "browsing", "internet safety", "online safety", "browse safely" },
                     new List<string>
                     {
-                        "SAFE BROWSING TIPS:\n" +
-                        "1. Check for HTTPS before entering personal information.\n" +
-                        "2. Avoid downloading files from unknown websites.\n" +
-                        "3. Keep your browser updated.\n" +
-                        "4. Do not click suspicious pop-ups.\n" +
-                        "5. Avoid sensitive transactions on public Wi-Fi.",
-
-                        "Safe browsing means thinking before you click. Always check website legitimacy, avoid suspicious downloads, and keep your browser and device updated."
+                        "Always check website safety before entering personal information.",
+                        "Avoid clicking unknown links and keep your browser updated."
                     },
                     "Safe Browsing"
                 ),
 
+                // Malware
                 new Response(
                     new[] { "malware", "virus", "trojan", "ransomware", "worm" },
                     new List<string>
                     {
-                        "MALWARE PROTECTION:\n" +
-                        "Malware is harmful software that can steal data, damage files, or spy on you. Keep antivirus software updated, avoid suspicious downloads, and never open unknown attachments.",
-                        "Signs of malware can include a slow computer, strange pop-ups, missing files, or programs opening on their own. Regular updates and backups help protect you."
+                        "Malware is harmful software that can damage your system or steal data.",
+                        "Keep antivirus software updated and avoid suspicious downloads."
                     },
                     "Malware"
                 ),
 
+                // Social engineering
                 new Response(
                     new[] { "social engineering", "manipulation", "pretexting", "baiting" },
                     new List<string>
                     {
-                        "SOCIAL ENGINEERING:\n" +
-                        "Social engineering is when attackers manipulate people into revealing sensitive information. They often pretend to be trusted people, support staff, or institutions.",
-                        "Always verify before sharing information. A convincing story, urgent request, or emotional pressure is often a sign of social engineering."
+                        "Social engineering tricks people into giving away sensitive information.",
+                        "Always verify before sharing personal details."
                     },
                     "Social Engineering"
                 ),
 
+                // Privacy
                 new Response(
                     new[] { "privacy", "online privacy", "protect my privacy" },
                     new List<string>
                     {
-                        "ONLINE PRIVACY TIPS:\n" +
-                        "Review privacy settings on your social media accounts, share less personal information publicly, use strong passwords, and enable two-factor authentication.",
-                        "Protecting your privacy means controlling what you share, who can see it, and how your accounts are secured."
+                        "Review your privacy settings and avoid oversharing online.",
+                        "Protect your personal information with strong security practices."
                     },
                     "Privacy"
                 ),
 
+                // Suspicious links
                 new Response(
                     new[] { "link", "links", "suspicious link", "unsafe link" },
                     new List<string>
                     {
-                        "Before clicking a link, ask yourself: Do I trust the sender? Does the address look correct? Is the message trying to scare or rush me? If something feels wrong, do not click.",
-                        "Hover over a link before clicking it. If the real destination looks strange or unrelated to the message, it may be unsafe."
+                        "Always check links before clicking them.",
+                        "If something feels suspicious, do not click the link."
                     },
                     "Suspicious Links"
                 ),
 
+                // Identity theft
                 new Response(
                     new[] { "identity theft", "stolen identity", "identity" },
                     new List<string>
                     {
-                        "Identity theft happens when criminals steal your personal information and use it fraudulently. Protect your ID number, passwords, banking information, and one-time pins.",
-                        "To reduce identity theft risk, do not overshare online, use strong passwords, and be careful with forms, fake calls, and suspicious messages."
+                        "Identity theft happens when your personal information is stolen.",
+                        "Protect your details and avoid sharing sensitive information."
                     },
                     "Identity Theft"
                 ),
 
+                // South African context
                 new Response(
                     new[] { "south africa", "sa", "south african", "cybercrime act", "sim swap" },
                     new List<string>
                     {
-                        "SOUTH AFRICAN CYBERSECURITY:\n" +
-                        "South Africa faces online banking scams, phishing, SIM swap fraud, fake job scams, and social media impersonation. Citizens should be extra cautious with banking alerts, OTP requests, and calls asking for personal details.",
-                        "In South Africa, SIM swap fraud and banking scams are common. Never share one-time pins, account details, or passwords with anyone over the phone."
+                        "In South Africa, scams like SIM swap and phishing are common.",
+                        "Never share OTPs or banking details with anyone."
                     },
                     "South Africa"
                 ),
 
+                // Exit messages
                 new Response(
                     new[] { "bye", "goodbye", "exit", "quit", "thank you", "thanks" },
                     new List<string>
                     {
                         "Thank you for using the Cybersecurity Awareness Bot. Stay safe online, {userName}!",
-                        "Goodbye, {userName}. Remember to think before you click and protect your information online."
+                        "Goodbye, {userName}. Remember to stay safe online."
                     },
                     "Exit"
                 )
