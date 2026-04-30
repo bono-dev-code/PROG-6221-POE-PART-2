@@ -100,7 +100,7 @@
 
                     <TextBox x:Name="NameInput"
                              Style="{StaticResource RoundedTextBoxStyle}"
-                             Text="Bono"/>
+                             Text=""/>
 
                     <Button Content="Set Name"
                             Style="{StaticResource PrimaryActionButtonStyle}"
