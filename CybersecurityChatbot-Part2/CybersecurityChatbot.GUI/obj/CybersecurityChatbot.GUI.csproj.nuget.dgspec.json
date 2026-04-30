@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\Desktop\\PROG 6221\\Assignment POE\\CHAT GPT\\PART 2\\part 2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj": {}
+    "C:\\Users\\DELL\\OneDrive\\Documents\\PROG-6221-POE-PART-2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\Desktop\\PROG 6221\\Assignment POE\\CHAT GPT\\PART 2\\part 2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj": {
+    "C:\\Users\\DELL\\OneDrive\\Documents\\PROG-6221-POE-PART-2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\PROG 6221\\Assignment POE\\CHAT GPT\\PART 2\\part 2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\OneDrive\\Documents\\PROG-6221-POE-PART-2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj",
         "projectName": "CybersecurityChatbot.GUI",
-        "projectPath": "C:\\Users\\DELL\\Desktop\\PROG 6221\\Assignment POE\\CHAT GPT\\PART 2\\part 2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj",
+        "projectPath": "C:\\Users\\DELL\\OneDrive\\Documents\\PROG-6221-POE-PART-2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\DELL\\Desktop\\PROG 6221\\Assignment POE\\CHAT GPT\\PART 2\\part 2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\obj\\",
+        "outputPath": "C:\\Users\\DELL\\OneDrive\\Documents\\PROG-6221-POE-PART-2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
