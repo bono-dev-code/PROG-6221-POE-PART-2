@@ -43,7 +43,7 @@ namespace CybersecurityChatbot.GUI {
         /// InitializeComponent
         /// </summary>
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "10.0.6.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "10.0.7.0")]
         public void InitializeComponent() {
             
             #line 4 "..\..\..\App.xaml"
@@ -58,7 +58,7 @@ namespace CybersecurityChatbot.GUI {
         /// </summary>
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "10.0.6.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "10.0.7.0")]
         public static void Main() {
             CybersecurityChatbot.GUI.App app = new CybersecurityChatbot.GUI.App();
             app.InitializeComponent();

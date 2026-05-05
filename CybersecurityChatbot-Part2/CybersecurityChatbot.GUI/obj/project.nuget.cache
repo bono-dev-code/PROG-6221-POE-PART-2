@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "2mlba/1lhuo=",
+  "dgSpecHash": "ZZDh3qh+qVs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DELL\\OneDrive\\Documents\\PROG-6221-POE-PART-2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\bneng\\Documents\\GitHub\\PROG-6221-POE-PART-2\\CybersecurityChatbot-Part2\\CybersecurityChatbot.GUI\\CybersecurityChatbot.GUI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bneng\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\bneng\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\bneng\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "C:\\Users\\bneng\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.36\\microsoft.netcore.app.host.win-x64.6.0.36.nupkg.sha512"
+  ],
   "logs": []
 }
