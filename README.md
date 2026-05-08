@@ -70,8 +70,9 @@ CybersecurityChatbot-Part2/
 ## Release Tags
 
 For Part 2, releases tags:
-- `v1.0-part1`
-- `v2.0-part2`
+- `v1.0 - Initial GUI Chatbot Version`
+- `v1.1 - Dynamic Chatbot Responses`
+- `v2.0 - Final POE Part 2 Submission`
 
 ## Notes
 
