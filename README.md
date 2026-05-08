@@ -67,18 +67,9 @@ CybersecurityChatbot-Part2/
 4. Run the WPF application.
 5. Set your name and start chatting.
 
-## Suggested GitHub Commits
-
-- Created WPF GUI project for Part 2
-- Migrated Part 1 models and services into GUI project
-- Added GUI layout with ASCII art and voice greeting
-- Implemented memory and recall
-- Added sentiment detection and follow-up conversation flow
-- Updated README and CI workflow for Part 2
-
 ## Release Tags
 
-For Part 2, create at least two releases/tags, for example:
+For Part 2, releases tags:
 - `v1.0-part1`
 - `v2.0-part2`
 
