@@ -85,6 +85,15 @@ namespace CybersecurityChatbot.Services
                 return followUpResponse;
             }
 
+            // Smart intent detection checks the specific meaning of the user's question first.
+            // This stops the chatbot from sounding confused when broad words overlap,
+            // for example password, scam, hack, privacy, Wi-Fi, or malware.
+            string smartIntentResponse = DetectSmartIntent(normalizedInput);
+            if (!string.IsNullOrWhiteSpace(smartIntentResponse))
+            {
+                return smartIntentResponse;
+            }
+
             // Loop through all responses and check if any keyword matches the user input
             foreach (var response in _responses)
             {
@@ -126,6 +135,251 @@ namespace CybersecurityChatbot.Services
 
             // If nothing matches, return a default helpful response
             return ApplySentimentPrefix(GetDefaultResponse(), _currentUser.LastTopic);
+        }
+
+        // Detects specific cybersecurity intentions before the general ResponseBank search.
+        // This method improves the NLP simulation requirement by allowing the chatbot
+        // to understand different ways a user may phrase the same cybersecurity problem.
+        private string DetectSmartIntent(string input)
+        {
+            // HACKED ACCOUNT / COMPROMISED ACCOUNT
+            if (ContainsAny(input,
+                "account hacked", "my account was hacked", "someone hacked my account",
+                "account compromised", "someone logged into my account", "cannot access my account",
+                "my facebook was hacked", "my instagram was hacked", "my email was hacked",
+                "my account got stolen", "hacked account"))
+            {
+                _currentUser.LastTopic = "Hacked Account";
+                return ApplySentimentPrefix(
+                    "It sounds like your account may be compromised. Change your password immediately, enable two-factor authentication, log out of all devices, and check your recovery email and phone number. If money or banking is involved, contact your bank as soon as possible.",
+                    _currentUser.LastTopic);
+            }
+
+            // SUSPICIOUS LINK / BAD LINK
+            if (ContainsAny(input,
+                "clicked a suspicious link", "clicked a bad link", "opened a suspicious link",
+                "dangerous link", "suspicious link", "bad link", "unknown link",
+                "clicked a link", "link from sms", "link from whatsapp", "link looks fake"))
+            {
+                _currentUser.LastTopic = "Suspicious Links";
+                return ApplySentimentPrefix(
+                    "If you clicked a suspicious link, do not enter any personal details. Close the page, change your password if you typed it in, scan your device, and enable two-factor authentication on important accounts.",
+                    _currentUser.LastTopic);
+            }
+
+            // PASSWORD LEAKED / STOLEN PASSWORD
+            if (ContainsAny(input,
+                "password leaked", "my password got leaked", "leaked password",
+                "password stolen", "stolen password", "password hacked", "data breach",
+                "password exposed", "my login was leaked", "credentials leaked"))
+            {
+                _currentUser.LastTopic = "Password Leak";
+                return ApplySentimentPrefix(
+                    "If your password was leaked, change it immediately. Do not reuse the old password, enable two-factor authentication, and check other accounts where you used the same password.",
+                    _currentUser.LastTopic);
+            }
+
+            // STRONG PASSWORD / PASSWORD STRENGTH
+            if (ContainsAny(input,
+                "strong password", "make my password stronger", "password stronger",
+                "secure password", "better password", "password strength", "weak password",
+                "create a password", "good password", "safe password", "hard to guess password"))
+            {
+                _currentUser.LastTopic = "Password Safety";
+                return ApplySentimentPrefix(
+                    "A strong password should be long, unique, and difficult to guess. Use at least 12 characters, mix uppercase letters, lowercase letters, numbers, and symbols, and avoid names, birthdays, or phone numbers.",
+                    _currentUser.LastTopic);
+            }
+
+            // PASSWORD SHARING
+            if (ContainsAny(input,
+                "share password", "share my password", "send password", "give password",
+                "whatsapp password", "email password", "someone asked for my password",
+                "bank asked for my password", "send my login"))
+            {
+                _currentUser.LastTopic = "Password Sharing";
+                return ApplySentimentPrefix(
+                    "Never share your password through WhatsApp, SMS, email, or phone calls. A real company or bank should never ask for your password. If someone asks for it, treat it as a warning sign.",
+                    _currentUser.LastTopic);
+            }
+
+            // PHISHING EMAIL
+            if (ContainsAny(input,
+                "fake email", "phishing email", "scam email", "suspicious email",
+                "email asking for password", "email asking for banking details",
+                "email looks fake", "email scam", "strange email", "email attachment"))
+            {
+                _currentUser.LastTopic = "Phishing";
+                return ApplySentimentPrefix(
+                    "That sounds like a phishing attempt. Do not click links or download attachments. Check the sender address carefully, avoid entering passwords from email links, and report the email as phishing if it looks suspicious.",
+                    _currentUser.LastTopic);
+            }
+
+            // BANKING / OTP SCAM
+            if (ContainsAny(input,
+                "otp", "bank scam", "banking scam", "stole my otp",
+                "someone asked for my otp", "fake bank message", "banking details",
+                "card number", "pin number", "capitec scam", "fnb scam", "absa scam",
+                "standard bank scam", "bank sms", "bank whatsapp"))
+            {
+                _currentUser.LastTopic = "Banking Scam";
+                return ApplySentimentPrefix(
+                    "Never share your OTP, PIN, card number, or banking password. Banks will not ask for your OTP by phone, SMS, WhatsApp, or email. If you shared it, contact your bank immediately and block suspicious transactions.",
+                    _currentUser.LastTopic);
+            }
+
+            // SIM SWAP FRAUD
+            if (ContainsAny(input,
+                "sim swap", "sim card hacked", "sim cloned", "lost signal suddenly",
+                "phone has no signal", "sim fraud", "number stolen", "cellphone number stolen"))
+            {
+                _currentUser.LastTopic = "SIM Swap Fraud";
+                return ApplySentimentPrefix(
+                    "SIM swap fraud happens when criminals move your phone number to another SIM card to receive your OTPs. If your signal disappears unexpectedly, contact your mobile network and bank immediately.",
+                    _currentUser.LastTopic);
+            }
+
+            // PUBLIC WIFI / FREE WIFI
+            if (ContainsAny(input,
+                "public wifi", "public wi-fi", "free wifi", "free wi-fi",
+                "airport wifi", "coffee shop wifi", "wifi safe", "wi-fi safe",
+                "public network", "unsecured wifi", "wifi at mall"))
+            {
+                _currentUser.LastTopic = "Public Wi-Fi";
+                return ApplySentimentPrefix(
+                    "Public Wi-Fi can be risky because attackers may intercept your information. Avoid banking on public Wi-Fi, do not enter sensitive passwords, and use a trusted VPN where possible.",
+                    _currentUser.LastTopic);
+            }
+
+            // MALWARE / VIRUS / SPYWARE
+            if (ContainsAny(input,
+                "malware", "virus", "computer infected", "phone infected",
+                "laptop acting weird", "device acting weird", "spyware", "trojan",
+                "computer has a virus", "phone has a virus", "strange popups", "unknown app"))
+            {
+                _currentUser.LastTopic = "Malware";
+                return ApplySentimentPrefix(
+                    "Malware is harmful software that can steal data, damage files, or spy on you. Run an antivirus scan, remove suspicious apps, update your system, and avoid downloading unknown files.",
+                    _currentUser.LastTopic);
+            }
+
+            // RANSOMWARE
+            if (ContainsAny(input,
+                "ransomware", "files encrypted", "locked files", "pay hackers",
+                "computer locked", "data locked", "files locked", "ransom message"))
+            {
+                _currentUser.LastTopic = "Ransomware";
+                return ApplySentimentPrefix(
+                    "Ransomware locks or encrypts your files and demands payment. Disconnect from the internet, do not rush to pay, report the attack, and restore from a safe backup if available.",
+                    _currentUser.LastTopic);
+            }
+
+            // PRIVACY / TRACKING
+            if (ContainsAny(input,
+                "apps tracking me", "websites tracking me", "protect my privacy",
+                "online privacy", "personal information", "data privacy", "app permissions",
+                "social media privacy", "who can see my information", "stop tracking me"))
+            {
+                _currentUser.LastTopic = "Privacy";
+                return ApplySentimentPrefix(
+                    "To protect your privacy, limit app permissions, use strong privacy settings, avoid oversharing personal details, and review what information websites and apps can collect from you.",
+                    _currentUser.LastTopic);
+            }
+
+            // WHATSAPP SCAM / VERIFICATION CODE
+            if (ContainsAny(input,
+                "whatsapp scam", "whatsapp hacked", "verification code", "whatsapp code",
+                "someone asked for my whatsapp code", "whatsapp verification", "whatsapp account stolen"))
+            {
+                _currentUser.LastTopic = "WhatsApp Scam";
+                return ApplySentimentPrefix(
+                    "WhatsApp scams often involve criminals asking for your verification code. Never share that code. Enable two-step verification in WhatsApp and warn your contacts if your account is compromised.",
+                    _currentUser.LastTopic);
+            }
+
+            // ONLINE SHOPPING SCAM / FAKE WEBSITE
+            if (ContainsAny(input,
+                "fake shop", "fake store", "online shopping scam", "shopping website",
+                "too cheap", "fake website", "fake online store", "online seller scam",
+                "buying online", "website looks fake"))
+            {
+                _currentUser.LastTopic = "Online Shopping Scam";
+                return ApplySentimentPrefix(
+                    "Before buying online, check reviews, website spelling, secure payment options, and contact details. Be careful of deals that look too cheap because fake shops often use unrealistic discounts.",
+                    _currentUser.LastTopic);
+            }
+
+            // SOCIAL ENGINEERING / IMPERSONATION
+            if (ContainsAny(input,
+                "social engineering", "someone pretending", "pretending to be my bank",
+                "tricked me", "manipulate", "impersonating", "fake support agent",
+                "pretending to be support", "pretending to be police"))
+            {
+                _currentUser.LastTopic = "Social Engineering";
+                return ApplySentimentPrefix(
+                    "Social engineering is when criminals manipulate people into sharing information or taking unsafe actions. Always verify requests through official channels before trusting messages or calls.",
+                    _currentUser.LastTopic);
+            }
+
+            // VPN
+            if (ContainsAny(input,
+                "vpn", "virtual private network", "hide my ip", "secure my connection",
+                "protect my connection", "encrypted connection"))
+            {
+                _currentUser.LastTopic = "VPN";
+                return ApplySentimentPrefix(
+                    "A VPN helps protect your connection by encrypting your internet traffic, especially on public Wi-Fi. However, you still need strong passwords, updates, and safe browsing habits.",
+                    _currentUser.LastTopic);
+            }
+
+            // TWO-FACTOR AUTHENTICATION / MFA
+            if (ContainsAny(input,
+                "2fa", "two factor", "two-factor", "mfa", "multi factor",
+                "authentication app", "authenticator app", "login code", "security code"))
+            {
+                _currentUser.LastTopic = "Authentication";
+                return ApplySentimentPrefix(
+                    "Two-factor authentication adds an extra security step after your password. Use an authenticator app where possible, and never share login codes or OTPs with anyone.",
+                    _currentUser.LastTopic);
+            }
+
+            // SAFE BROWSING / WEBSITE SAFETY
+            if (ContainsAny(input,
+                "safe browsing", "browse safely", "safe website", "unsafe website",
+                "website safe", "https", "browser warning", "website security"))
+            {
+                _currentUser.LastTopic = "Safe Browsing";
+                return ApplySentimentPrefix(
+                    "To browse safely, check for HTTPS, avoid suspicious pop-ups, do not download unknown files, and be careful with websites that pressure you to act urgently.",
+                    _currentUser.LastTopic);
+            }
+
+            // CYBERBULLYING / ONLINE HARASSMENT
+            if (ContainsAny(input,
+                "cyberbullying", "online bullying", "online harassment", "someone is threatening me",
+                "harassing me online", "abusive messages", "bullying messages"))
+            {
+                _currentUser.LastTopic = "Cyberbullying";
+                return ApplySentimentPrefix(
+                    "Cyberbullying should be taken seriously. Save evidence, block the person, report the account on the platform, and speak to a trusted person or authority if threats are involved.",
+                    _currentUser.LastTopic);
+            }
+
+            // IDENTITY THEFT
+            if (ContainsAny(input,
+                "identity theft", "stolen identity", "someone used my id",
+                "someone used my information", "my personal details were stolen",
+                "id number stolen", "fraud in my name"))
+            {
+                _currentUser.LastTopic = "Identity Theft";
+                return ApplySentimentPrefix(
+                    "Identity theft happens when someone uses your personal information without permission. Secure your accounts, contact your bank if needed, report the fraud, and monitor your accounts for suspicious activity.",
+                    _currentUser.LastTopic);
+            }
+
+            // No specific smart intent was detected.
+            // The chatbot will continue to the normal ResponseBank keyword search.
+            return string.Empty;
         }
 
         // Converts user input to lowercase and removes extra spaces
